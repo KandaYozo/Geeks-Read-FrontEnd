@@ -625,35 +625,65 @@ app.post("/api/sign-up", (req, res, next) => {
 });
 
 app.use("/api/author", (req, res, next) => {
-    const authorInfo = {
-        authorId: '1152114',
-        authorName: 'Mark Twain',
-        authorPicture: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/authors/1322103868i/1244._UX87_.jpg',
-        authorIsFollowing: false,
-        authorNumberOfFollowers: '14031',
-        authorDetails: 'Samuel Langhorne Clemens, better known by his pen name Mark Twain, was an American author and humorist. He is noted for his novels Adventures of Huckleberry Finn (1885), called "the Great American Novel", and The Adventures of Tom Sawyer (1876).\nTwain grew up in Hannibal, Missouri, which would later provide the setting for Huckleberry Finn and Tom Sawyer. He apprenticed with a printer. He also worked as a typesetter and contributed articles to his older brother Orion\'s newspaper. After toiling as a printer in various cities, he became a master riverboat pilot on the Mississippi River, before heading west to join Orion. He was a failure at gold mining, so he next turned to journalism. While a reporter, he wrote a humorous story, "The Celebrated Jumping Frog of Calaveras County," which proved to be very popular and brought him nationwide attention. His travelogues were also well-received. Twain had found his calling.',
-    };
-
     res.status(200).json({
-        message: "Author fetched successfully!",
-        authorInfo: authorInfo
+        About: 'Samuel Langhorne Clemens, better known by his pen name Mark Twain, was an American author and humorist. He is noted for his novels Adventures of Huckleberry Finn (1885), called "the Great American Novel", and The Adventures of Tom Sawyer (1876).\nTwain grew up in Hannibal, Missouri, which would later provide the setting for Huckleberry Finn and Tom Sawyer. He apprenticed with a printer. He also worked as a typesetter and contributed articles to his older brother Orion\'s newspaper. After toiling as a printer in various cities, he became a master riverboat pilot on the Mississippi River, before heading west to join Orion. He was a failure at gold mining, so he next turned to journalism. While a reporter, he wrote a humorous story, "The Celebrated Jumping Frog of Calaveras County," which proved to be very popular and brought him nationwide attention. His travelogues were also well-received. Twain had found his calling.',
+        AuthorId: '1152114',
+        AuthorName: 'Mark Twain',
+        BookId: (4)["115", "116", "117", "118"],
+        FollowingUserId: [],
+        Photo: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/authors/1322103868i/1244._UX87_.jpg',
+        _id: "1152114",
     });
 });
 
-app.use("/api/author-book", (req, res, next) => {
-    const authorBookInfo = {
-        authorBookId: '105030',
-        authorBookLink: 'https://std.eng.cu.edu.eg/login.aspx',
-        authorBookName: 'The Prince and the Pauper',
-        authorBookPicture: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1376406798i/62446._UX75_.jpg',
-        authorBookRating: '5.0',
-        authorBookShelf: 'Read',
-        authorId: '1152114',
-    };
+app.use("/api/books/author", (req, res, next) => {
+    res.status(200).json(
+        [{
+                Authorld: '1152114',
+                Bookld: '115',
+                BookRating: { $numberDecimal: '5.0' },
+                Cover: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1376406798i/62446._UX75_.jpg',
+                Description: 'Prince gets mistaken for a poor boy who looks exactly like him.',
+                Genre: 'Horror',
+                ISBN: '113556447',
+                Pages: 290,
+                Published: '2010',
+                Publisher: 'CUFE',
+                ReadStatus: 'Read',
+                Store: (2)["Twain Books", "Horror Publish"],
+                Title: 'The Prince and the Pauper',
+                _id: '115'
+            },
+            {
+                Authorld: '1152114',
+                Bookld: '116',
+                BookRating: { $numberDecimal: '4.0' },
+                Cover: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1546096879i/2956._UX75_.jpg',
+                Description: 'A nineteenth-century boy from a Mississippi River town recounts his adventures as he travels down the river with a runaway slave, encountering a family involved in a feud, two scoundrels pretending to be royalty, and Tom Sawyer',
+                Genre: 'Comedy',
+                ISBN: '113556778',
+                Pages: 150,
+                Published: '2011',
+                Publisher: 'CUFE',
+                ReadStatus: 'Currently Reading',
+                Store: (2)["Twain Books", "Horror Publish"],
+                Title: 'The Adventures of Huckleberry Finn',
+                _id: '116'
+            }
+        ]);
+});
 
+app.use("/api/authors/follow", (req, res, next) => {
     res.status(200).json({
-        message: "Author Book fetched successfully!",
-        authorBookInfo: authorBookInfo
+        sucess: true,
+        message: "Following Author"
+    });
+});
+
+app.use("/api/authors/unfollow", (req, res, next) => {
+    res.status(200).json({
+        sucess: true,
+        message: "Unfollowing Author"
     });
 });
 

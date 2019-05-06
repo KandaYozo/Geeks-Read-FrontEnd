@@ -26,6 +26,13 @@ app.post("/api/posts", (req, res, next) => {
         message: "Post added successfully"
     });
 });
+app.post("/api/reviewcomments", (req, res, next) => {
+    const post = req.body;
+    console.log("Comment added successfully");
+    res.status(201).json({
+        message: "Comment added successfully"
+    });
+});
 app.post("/api/book", (req, res, next) => {
     const post = req.body;
     console.log(post.book_id);

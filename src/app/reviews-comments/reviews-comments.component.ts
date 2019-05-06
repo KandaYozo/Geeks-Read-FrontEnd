@@ -9,6 +9,7 @@ import { delay } from 'q';
   styleUrls: ['./reviews-comments.component.css']
 })
 export class ReviewsCommentsComponent implements OnInit {
+  str: string;
 /**
  *
  * variable list used to carry user image
@@ -100,5 +101,9 @@ public comment_details: CommentsDetails[] = [];
       this.userdate[x] = this.comment_details[x].user_date;
     }
   }
-
+  SendComment() {
+    console.log(this.str);
+    this.str = '';
+    this.comments_service.post_Review();
+  }
 }

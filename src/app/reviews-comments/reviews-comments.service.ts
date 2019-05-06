@@ -54,4 +54,22 @@ get_comments_Info() {
     get_comments_Info_updated() {
         return this.comments_detailsUpdated.asObservable();
     }
+    post_Review() {
+// tslint:disable-next-line: max-line-length
+        const UserToken = {
+            Body: 'afaassssssssssssssssssssssssssa',
+            ReviewId: '112312313131',
+            BookId: '42423424242',
+            userId: '1231313',
+            Photo: '242342342',
+            token: '242424242',
+            LikesCount: '0',
+            date: '12313131'
+        };
+        this.http.post<{ message: string}>('http://localhost:3000/api/reviewcomments', UserToken).
+        subscribe(responseData => {          //  subscribe the list of books recieved
+        console.log(responseData);    // assign them to the list to display them
+        //this.comments_detailsUpdated.next([...this.comments_details]);
+        });
+    }
 }

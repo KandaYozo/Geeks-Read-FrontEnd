@@ -40,4 +40,5 @@ export interface CommentsDetails {
      * @memberof CommentsDetails
      */
     user_date: string;
+    AddedCommentSuc: boolean;
 }

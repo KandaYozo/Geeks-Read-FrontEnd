@@ -18,7 +18,11 @@
     margin-left: 10px;
     font-weight: bold;
 }
-
+#name-div{
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+}
 #user-reviews {
     display: flex;
     flex-direction: row;
@@ -100,6 +104,7 @@
 }
 #rate-it {
     color: rgb(88, 88, 88);
+    margin-left: 5px;
 }
 
 #review-comment {

@@ -10,6 +10,9 @@ import { delay } from 'q';
 })
 export class ReviewsEntityComponent implements OnInit {
 
+  type1: string;
+  type2: string;
+  type3: string;
   /**
    *
    * variable list used to carry book title
@@ -140,6 +143,7 @@ public after_dots: string [] = [];
  * @param {ReviewerDetails_Service} review_service
  * @memberof ReviewsEntityComponent
  */
+bookstatus: string;
 constructor(public review_service: ReviewerDetails_Service) { }
 /**
  *
@@ -157,6 +161,8 @@ ngOnInit() {
       console.log(this.User_info.user_id)
       console.log(this.User_info.User_Photo)*/
     });
+    this.bookstatus = 'Add To Shelf';
+    this.assign_status('Add To Shelf');
   }
   /**
    *
@@ -215,6 +221,46 @@ ngOnInit() {
       this.befor_dots[starting_indext] = word[0];
       this.after_dots[starting_indext] = word[1];
       starting_indext++;
+    }
+  }
+  assign_status(index: string) {
+    if (index === 'Want To Read') {
+      this.type1 = 'Currently Reading';
+      this.type2 = 'Remove From Shelve';
+      this.type3 = '';
+    } else if (index === 'Read') {
+      this.type1 = 'Remove From Shelve';
+      this.type2 = '';
+      this.type3 = '';
+    } else if (index === 'Currently Reading') {
+      this.type1 = 'Read';
+      this.type2 = 'Remove From Shelve';
+      this.type3 = '';
+    } else if (index === 'Add To Shelf') {
+      this.type1 = 'Want To Read';
+      this.type2 = 'Currently Reading';
+      this.type3 = 'Read';
+    }
+  }
+  OnclickLike() {
+    const Liked = document.getElementById('liked');
+    const liking = document.getElementById('show-likes');
+    if(Liked.innerHTML === 'Like') {
+      Liked.innerHTML = 'Liked';
+      let x = liking.innerHTML.toString();
+// tslint:disable-next-line: radix
+      let y = parseInt(x);
+      y = y + 1;
+      x = y.toString();
+      liking.innerHTML = x;
+    } else {
+      Liked.innerHTML = 'Like';
+      let x = liking.innerHTML.toString();
+// tslint:disable-next-line: radix
+      let y = parseInt(x);
+      y = y - 1;
+      x = y.toString();
+      liking.innerHTML = x;
     }
   }
 }

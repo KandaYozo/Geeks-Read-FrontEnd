@@ -40,7 +40,11 @@ export class RowServices {
    * @memberof RowServices
    */
   get_row(genre: string) {
-    this.http.get('http://localhost:3000/api/genre').subscribe((serverResponse: Row[]) => {
+    this.http.get('http://localhost:3000/api/genre', {
+      params: {
+        Genre: genre,
+      }
+    }).subscribe((serverResponse: Row[]) => {
       console.log(genre);
       this.Row = serverResponse;
       console.log(this.Row);

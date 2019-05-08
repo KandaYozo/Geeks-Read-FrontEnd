@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
-import { Post } from './newsfeed-post.model';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Post } from './newsfeed-main.model';
+import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
 
 /**
  * contains all the service functions
@@ -9,16 +10,13 @@ import { HttpClient } from '@angular/common/http';
  * @class PostsServices
  */
 @Injectable({ providedIn: 'root' })
-
-
 export class PostsServices {
-
   /**
    * Creates an instance of PostsServices
    * @param {HttpClient} http
    * @memberof PostsServices
    */
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   /**
    * Post
@@ -26,29 +24,32 @@ export class PostsServices {
    * @type {Post}
    * @memberof PostsServices
    */
-  private post: Post;
+  private post: Post[] = [];
 
   /**
    * Post Updated
    * @private
    * @memberof PostsServices
    */
-  private postUpdated = new Subject<Post>();
+  private postUpdated = new Subject<Post[]>();
+
 
   /**
+   * This functions connects to the backend
    *
-   * this functions gets the data required ftom the backend
    * @memberof PostsServices
    */
   getpost() {
-    this.http.get<{ message: string, Post: Post }>('http://localhost:3000/api/newsfeed')
-      .subscribe((PostData) => {
-        this.post = PostData.Post;
-        this.postUpdated.next(this.post);
+    this.http.post('http://localhost:3000/api/newsfeed', {
+      token: localStorage.getItem('token'),
+      UserId: localStorage.getItem('userId')
+    }).subscribe((serverResponse: any) => {
+      console.log(serverResponse);
+      this.post = serverResponse;
+      this.postUpdated.next([...this.post]);
+    });
 
-      });
   }
-
   /**
    * This function makes sure that the newsfeed is updated
    * @returns

@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { Row } from './genre-row.model';
+import { GenreRowComponent } from './genre-row.component';
 
 /**
  *
@@ -25,27 +26,29 @@ export class RowServices {
    * @type {Row}
    * @memberof RowServices
    */
-  private Row: Row;
+  private Row: Row[] = [];
 
   /**
    * Row Updated
    * @private
    * @memberof RowServices
    */
-  private rowUpdated = new Subject<Row>();
+  private rowUpdated = new Subject<Row[]>();
 
   /**
    * This function gets the row info
    * @memberof RowServices
    */
-  get_row() {
-    this.http.get<{ message: string, Row: Row }>('http://localhost:3000/api/genres').subscribe((RowData) => {
-      this.Row = RowData.Row;
+  get_row(genre: string) {
+    this.http.get('http://localhost:3000/api/genre').subscribe((serverResponse: Row[]) => {
+      console.log(genre);
+      this.Row = serverResponse;
+      console.log(this.Row);
       this.rowUpdated.next(this.Row);
-
+    }, (error: { json: () => void; }) => {
+      console.log(error);
     });
   }
-
 
   /**
    *

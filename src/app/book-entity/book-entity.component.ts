@@ -20,13 +20,8 @@ export class BookEntityComponent implements OnInit {
  * @memberof BookEntityComponent
  */
 type1: string;
-/**
- *
- * vairbale used to store available option of read button
- * @type {string}
- * @memberof BookEntityComponent
- */
 type2: string;
+type3: string;
 /**
  *
  * variable list used to store list of book images
@@ -275,13 +270,20 @@ book_status(index: string) {
 assign_status(index: string) {
   if (index === 'Want To Read') {
     this.type1 = 'Currently Reading';
-    this.type2 = 'Read';
+    this.type2 = 'Remove From Shelve';
+    this.type3 = '';
   } else if (index === 'Read') {
-    this.type1 = 'Currently Reading';
-    this.type2 = 'Want To Read';
+    this.type1 = 'Remove From Shelve';
+    this.type2 = '';
+    this.type3 = '';
   } else if (index === 'Currently Reading') {
     this.type1 = 'Read';
-    this.type2 = 'Want To Read';
+    this.type2 = 'Remove From Shelve';
+    this.type3 = '';
+  } else if (index === 'Add To Shelf') {
+    this.type1 = 'Want To Read';
+    this.type2 = 'Currently Reading';
+    this.type3 = 'Read';
   }
 }
 }

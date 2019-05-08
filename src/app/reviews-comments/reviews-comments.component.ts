@@ -3,6 +3,7 @@ import { CommentsDetails } from './reviews-comments.model';
 import { Subscription } from 'rxjs';
 import { CommentsDetails_Service } from './reviews-comments.service';
 import { delay } from 'q';
+import { MatSnackBar } from '@angular/material';
 @Component({
   selector: 'app-reviews-comments',
   templateUrl: './reviews-comments.component.html',
@@ -68,7 +69,7 @@ public comment_details: CommentsDetails[] = [];
    * @param {CommentsDetails_Service} comments_service
    * @memberof ReviewsCommentsComponent
    */
-  constructor(public comments_service: CommentsDetails_Service) { }
+  constructor(public comments_service: CommentsDetails_Service, public snackbar: MatSnackBar) { }
   /**
    *
    * function used to intilize page and set elements
@@ -103,6 +104,10 @@ public comment_details: CommentsDetails[] = [];
   }
   SendComment() {
     console.log(this.str);
+    const snackbaref = this.snackbar.open('Added A Comment', ' ' , {
+      horizontalPosition: 'end',
+      duration: 2000
+    });
     this.str = '';
     this.comments_service.post_Review();
   }

@@ -3,6 +3,7 @@ import { ReviewDetails } from './reviews-entity.model';
 import { Subscription } from 'rxjs';
 import { ReviewerDetails_Service } from './reviews-entity.service';
 import { delay } from 'q';
+import { MatSnackBar } from '@angular/material';
 @Component({
   selector: 'app-reviews-entity',
   templateUrl: './reviews-entity.component.html',
@@ -144,7 +145,7 @@ public after_dots: string [] = [];
  * @memberof ReviewsEntityComponent
  */
 bookstatus: string;
-constructor(public review_service: ReviewerDetails_Service) { }
+constructor(public review_service: ReviewerDetails_Service, public snackbar: MatSnackBar) { }
 /**
  *
  * function used to intilize page and set list of reviews
@@ -242,10 +243,67 @@ ngOnInit() {
       this.type3 = 'Read';
     }
   }
+  book_status_Post(indexfirst: string, indexsecond: string) {
+    const first = document.getElementById(indexfirst);
+    const second = document.getElementById(indexsecond);
+    const y = first.textContent;
+    const x = second.textContent;
+    if (y === 'Read') {
+      first.textContent = 'Add To Shelf';
+      const snackbaref = this.snackbar.open('Book Has Been Removed', ' ' , {
+        horizontalPosition: 'end',
+        duration: 2000
+      });
+      this.assign_status(first.textContent);
+    } else if (y === 'Want To Read') {
+      if (x === 'Remove From Shelve') {
+        first.textContent = 'Add To Shelf';
+        const snackbaref = this.snackbar.open('Book Has Been Removed', ' ' , {
+          horizontalPosition: 'end',
+          duration: 2000
+        });
+        this.assign_status(first.textContent);
+      } else {
+        first.textContent = x;
+        const snackbaref = this.snackbar.open('Book Has Been Added To Currently Reading', ' ' , {
+          horizontalPosition: 'end',
+          duration: 2000
+        });
+        this.assign_status(x);
+      }
+    } else if (y === 'Currently Reading') {
+      if (x === 'Remove From Shelve') {
+        first.textContent = 'Add To Shelf';
+        const snackbaref = this.snackbar.open('Book Has Been Removed', ' ' , {
+          horizontalPosition: 'end',
+          duration: 2000
+        });
+        this.assign_status(first.textContent);
+      } else {
+        first.textContent = x;
+        const snackbaref = this.snackbar.open('Book Has Been Added to Read', ' ' , {
+          horizontalPosition: 'end',
+          duration: 2000
+        });
+        this.assign_status(x);
+      }
+    } else if (y === 'Add To Shelf') {
+      first.textContent = x;
+      const snackbaref = this.snackbar.open('Book Has Been Added', ' ' , {
+        horizontalPosition: 'end',
+        duration: 2000
+      });
+      this.assign_status(x);
+    }
+  }
   OnclickLike() {
     const Liked = document.getElementById('liked');
     const liking = document.getElementById('show-likes');
     if(Liked.innerHTML === 'Like') {
+      const snackbaref = this.snackbar.open('Liked Review', ' ' , {
+        horizontalPosition: 'end',
+        duration: 2000
+      });
       Liked.innerHTML = 'Liked';
       let x = liking.innerHTML.toString();
 // tslint:disable-next-line: radix
@@ -254,6 +312,10 @@ ngOnInit() {
       x = y.toString();
       liking.innerHTML = x;
     } else {
+      const snackbaref = this.snackbar.open('Unlike Review', ' ' , {
+        horizontalPosition: 'end',
+        duration: 2000
+      });
       Liked.innerHTML = 'Like';
       let x = liking.innerHTML.toString();
 // tslint:disable-next-line: radix

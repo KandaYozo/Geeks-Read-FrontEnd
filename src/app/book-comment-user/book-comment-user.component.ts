@@ -3,6 +3,7 @@ import { Bookreviews } from './book-comment-user.model';
 import { Subscription } from 'rxjs';
 import { Bookreviews_Service } from './book-comment-user.service';
 import { delay } from 'q';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-book-comment-user',
@@ -11,6 +12,8 @@ import { delay } from 'q';
 })
 export class BookCommentUserComponent implements OnInit {
 // tslint:disable-next-line: variable-name
+str: string;
+value;
 /**
  *
  * vairbale used to take subscription
@@ -112,7 +115,7 @@ public load_more_reviews = 0;
  * @param {Bookreviews_Service} bookreviews_service
  * @memberof BookCommentUserComponent
  */
-constructor(public bookreviews_service: Bookreviews_Service) { }
+constructor(public bookreviews_service: Bookreviews_Service, public snackbar: MatSnackBar) { }
   /**
    *
    * function used to see more reviews by other users
@@ -246,7 +249,11 @@ ngOnInit() {
   OnclickLike(index: Bookreviews, cond: number) {
     const Liked = document.getElementById('liked'+cond);
     const liking = document.getElementById('show-likes'+cond);
-    if(Liked.innerHTML === 'Like') {
+    if (Liked.innerHTML === 'Like') {
+      const snackbaref = this.snackbar.open('Liked Review', ' ' , {
+        horizontalPosition: 'end',
+        duration: 2000
+      });
       Liked.innerHTML = 'Liked';
       let x = liking.innerHTML.toString();
 // tslint:disable-next-line: radix
@@ -255,6 +262,10 @@ ngOnInit() {
       x = y.toString();
       liking.innerHTML = x;
     } else {
+      const snackbaref = this.snackbar.open('Unliked Review', ' ' , {
+        horizontalPosition: 'end',
+        duration: 2000
+      });
       Liked.innerHTML = 'Like';
       let x = liking.innerHTML.toString();
 // tslint:disable-next-line: radix
@@ -264,5 +275,22 @@ ngOnInit() {
       liking.innerHTML = x;
     }
     this.bookreviews_service.request_reviewer_like(index.reviewer_id, index.reviewer_likes);
+  }
+  SendComment() {
+    if (this.str === null) {
+      const snackbaref = this.snackbar.open('Empty Body', ' ', {
+        duration: 3000,
+        horizontalPosition: 'center'
+      });
+    } else {
+      console.log(this.str);
+      console.log(this.value);
+      this.str = '';
+      const snackbaref = this.snackbar.open('Review Added', ' ' , {
+        horizontalPosition: 'end',
+        duration: 2000
+      });
+      this.bookreviews_service.request_reviewer_add();
+    }
   }
 }

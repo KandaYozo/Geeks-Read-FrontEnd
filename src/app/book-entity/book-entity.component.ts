@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { BookTitle_Service } from './book-entity.service';
 import { AuthorDetails } from './book-entity.model';
 import { delay } from 'q';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-book-entity',
@@ -125,7 +126,7 @@ public after_dots: string [] = [];
    * @param {BookTitle_Service} booktitle_service
    * @memberof BookEntityComponent
    */
-constructor(public booktitle_service: BookTitle_Service) { }
+constructor(public booktitle_service: BookTitle_Service, public snackbar: MatSnackBar) { }
   /**
    *
    * function used to recieve information from services.tss
@@ -226,6 +227,92 @@ ngOnInit() {
       rate2.style.color = 'orange';
       rate3.style.color = 'orange';
       rate4.style.color = 'orange';
+    }
+  }
+  PostRate(rate: string) {
+    if (rate === 'rate-first') {
+      const snackbaref = this.snackbar.open('Book Has Been Rated', ' ' , {
+        horizontalPosition: 'end',
+        duration: 2000
+      });
+      this.ngOnInit();
+    } else if (rate === 'rate-second') {
+      const snackbaref = this.snackbar.open('Book Has Been Rated', ' ' , {
+        horizontalPosition: 'end',
+        duration: 2000
+      });
+      this.ngOnInit();
+    } else if (rate === 'rate-third') {
+      const snackbaref = this.snackbar.open('Book Has Been Rated', ' ' , {
+        horizontalPosition: 'end',
+        duration: 2000
+      });
+      this.ngOnInit();
+    } else if (rate === 'rate-fourth') {
+      const snackbaref = this.snackbar.open('Book Has Been Rated', ' ' , {
+        horizontalPosition: 'end',
+        duration: 2000
+      });
+      this.ngOnInit();
+    } else if (rate === 'rate-fifth') {
+      const snackbaref = this.snackbar.open('Book Has Been Rated', ' ' , {
+        horizontalPosition: 'end',
+        duration: 2000
+      });
+      this.ngOnInit();
+    }
+  }
+  book_status_Post(indexfirst: string, indexsecond: string) {
+    const first = document.getElementById(indexfirst);
+    const second = document.getElementById(indexsecond);
+    const y = first.textContent;
+    const x = second.textContent;
+    if (y === 'Read') {
+      first.textContent = 'Add To Shelf';
+      const snackbaref = this.snackbar.open('Book Has Been Removed', ' ' , {
+        horizontalPosition: 'end',
+        duration: 2000
+      });
+      this.assign_status(first.textContent);
+    } else if (y === 'Want To Read') {
+      if (x === 'Remove From Shelve') {
+        first.textContent = 'Add To Shelf';
+        const snackbaref = this.snackbar.open('Book Has Been Removed', ' ' , {
+          horizontalPosition: 'end',
+          duration: 2000
+        });
+        this.assign_status(first.textContent);
+      } else {
+        first.textContent = x;
+        const snackbaref = this.snackbar.open('Book Has Been Added To Currently Reading', ' ' , {
+          horizontalPosition: 'end',
+          duration: 2000
+        });
+        this.assign_status(x);
+      }
+    } else if (y === 'Currently Reading') {
+      if (x === 'Remove From Shelve') {
+        first.textContent = 'Add To Shelf';
+        const snackbaref = this.snackbar.open('Book Has Been Removed', ' ' , {
+          horizontalPosition: 'end',
+          duration: 2000
+        });
+        this.assign_status(first.textContent);
+      } else {
+        first.textContent = x;
+        const snackbaref = this.snackbar.open('Book Has Been Added to Read', ' ' , {
+          horizontalPosition: 'end',
+          duration: 2000
+        });
+        this.assign_status(x);
+      }
+    } else if (y === 'Add To Shelf') {
+      first.textContent = x;
+      const snackbaref = this.snackbar.open('Book Has Been Added', ' ' , {
+        horizontalPosition: 'end',
+        duration: 2000
+      });
+      this.assign_status(x);
     }
   }
   /**

@@ -3,6 +3,7 @@ import { AuthorDetails } from './book-author.model';
 import { Subscription } from 'rxjs';
 import { AuthorDetails_Service } from './book-author.service';
 import { delay } from 'q';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-book-author',
@@ -109,7 +110,7 @@ public after_dots: string [] = [];
    * @param {AuthorDetails_Service} authordetails_service
    * @memberof BookAuthorComponent
    */
-  constructor(public authordetails_service: AuthorDetails_Service) { }
+  constructor(public authordetails_service: AuthorDetails_Service, public snackbar: MatSnackBar) { }
   /**
    *
    * function used to read author list from services.ts
@@ -147,7 +148,10 @@ public after_dots: string [] = [];
     number.innerHTML = x;
     this.authordetails_service.post_author_unfollow(this.authorid[this.author_index], this.userid[this.author_index]);
     //this.authorNumberOfFollowers += 1;
-    console.log('Following this author');
+    const snackbaref = this.snackbar.open('Followed author', ' ' , {
+      horizontalPosition: 'end',
+      duration: 2000
+    });
   }
   /**
    *
@@ -167,7 +171,10 @@ public after_dots: string [] = [];
     x = y.toString();
     number.innerHTML = x;
     this.authordetails_service.post_author_unfollow(this.authorid[this.author_index], this.userid[this.author_index]);
-    console.log('Unfollowing this author');
+    const snackbaref = this.snackbar.open('UnFollowed author', ' ' , {
+      horizontalPosition: 'end',
+      duration: 2000
+    });
   }
   GetAuthorByID() {
     this.authordetails_service.post_author_id(this.authorid[this.author_index]);

@@ -25,7 +25,7 @@ import { GenresComponent } from './genres/genres.component';
 import { GenreRowComponent } from './genre-row/genre-row.component';
 import { NewsfeedComponent } from './newsfeed/newsfeed.component';
 import { NewsfeedPostComponent } from './newsfeed-post/newsfeed-post.component';
-import { MAT_LABEL_GLOBAL_OPTIONS } from '@angular/material';
+import { MAT_LABEL_GLOBAL_OPTIONS, MatSnackBarModule } from '@angular/material';
 import { FooterComponent } from './footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ProfileEditComponent } from './profile-edit/profile-edit.component';
@@ -85,7 +85,8 @@ import { VerificationComponent } from './verification/verification.component';
     MaterialModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

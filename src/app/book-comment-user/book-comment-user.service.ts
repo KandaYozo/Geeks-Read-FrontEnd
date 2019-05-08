@@ -103,4 +103,14 @@ request_reviewer_like(review_id: string, review_like: string) {
             console.log(responseData.message);
         });
     }
+    request_reviewer_add() {
+        // tsli
+        // tslint:disable-next-line: max-line-length
+                const reviewer_comment: Bookreviews = {reviewer_id: null, reviewer_name:null,reviewer_body:null,reviewer_comments:null,reviewer_date:null,reviewer_image:null,reviewer_likes:null,reviewer_rate:null};
+                this.http.post<{message: string}>('http://localhost:3000/api/reviewdata', reviewer_comment)
+                .subscribe ((responseData) => {
+                    console.log('review added');
+                    console.log(responseData.message);
+                });
+            }
 }

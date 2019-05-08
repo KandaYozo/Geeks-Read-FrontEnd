@@ -33,19 +33,4 @@ describe('AuthorBookComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  it('Should contain Want to Read', async(() => {
-    const a = fixture.debugElement.nativeElement.querySelector('#want-to-read').textContent;
-    expect(a).toContain('Want');
-  }));
-
-  it('Should contain Currently Reading', async(() => {
-    const a = fixture.debugElement.nativeElement.querySelector('#currently-reading').textContent;
-    expect(a).toContain('Currently');
-  }));
-
-  it('Should contain Read', async(() => {
-    const a = fixture.debugElement.nativeElement.querySelector('#read').textContent;
-    expect(a).toContain('Read');
-  }));
 });

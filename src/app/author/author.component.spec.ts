@@ -48,4 +48,9 @@ describe('AuthorComponent', () => {
     const a = fixture.debugElement.nativeElement.querySelector('#author-unfollow').textContent;
     expect(a).toContain('Unfollow');
   }));
+
+  it('Mark Twain Author', async(() => {
+    const a = fixture.debugElement.nativeElement.querySelector('#author-name').textContent;
+    expect(a).toContain('The Prince and the Pauper');
+  }));
 });
